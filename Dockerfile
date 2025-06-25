@@ -1,8 +1,10 @@
-FROM golang:1.24 as builder
+FROM golang:1.24 AS builder
 WORKDIR /k8sController
+
+COPY go.mod go.sum ./
+RUN go mod tidy
 COPY . .
-RUN go mod init k8sController && go mod tidy
-RUN go build -o controller
+RUN go build -ldflags="-s -w" -o controller
 
 FROM gcr.io/distroless/static
 COPY --from=builder /k8sController/controller /controller
