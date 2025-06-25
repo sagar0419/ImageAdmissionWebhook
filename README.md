@@ -10,9 +10,9 @@
 
 Run these commands in the Makefile directory 🗂️:
 
-`make deploy          # Apply ServiceAccount + Deployment
-make status          # See what’s running
-make clean           # Delete all deployed resources`
+`make deploy          # Apply ServiceAccount + Deployment`
+`make status          # See what’s running`
+`make clean           # Delete all deployed resources`
 
 You can override the namespace if needed:
 
