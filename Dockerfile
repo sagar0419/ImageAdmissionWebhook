@@ -1,11 +1,8 @@
-FROM golang:1.24 AS builder
+FROM golang:1.24-bullseye AS builder
 WORKDIR /k8sController
-
+RUN apt-get update && apt-get install -y ca-certificates
 COPY go.mod go.sum ./
 RUN go mod tidy
 COPY . .
-
-FROM gcr.io/distroless/static
-COPY --from=builder /k8sController/controller /controller
-COPY tls /tls
-ENTRYPOINT ["/controller"]
+RUN go build -o imagecontroller
+ENTRYPOINT ["./imagecontroller"]
