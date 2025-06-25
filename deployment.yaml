@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: image-validation-controller
+  labels:
+    app: image-validation-controller
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: image-validation-controller
+  template:
+    metadata:
+      labels:
+        app: image-validation-controller
+    spec:
+      serviceAccountName: image-validation-controller
+      containers:
+      - name: image-validation-controller
+        image: sagar27/k8scontroller:1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: LOG_LEVEL
+          value: "info"
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "256Mi"
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+      restartPolicy: Always
