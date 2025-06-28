@@ -1,0 +1,30 @@
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: deployment-validation
+webhooks:
+  - name: "deployment-validation.default.svc"
+    namespaceSelector:
+      matchLabels:
+        admission-webhook: enabled
+      # matchExpressions:
+      #   - key: kubernetes.io/metadata.name
+      #     operator: In
+      #     values: [ "default" ]
+    rules:
+      - operations: [ "CREATE"]
+        apiGroups: [ "apps" ]
+        apiVersions: [ "v1" ]
+        resources: [ "deployments" ]
+        scope: "Namespaced"
+    clientConfig:
+      service:
+        namespace: default
+        name: webhook-server
+        path: "/validate"
+      caBundle: >
+        LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURRekNDQWl1Z0F3SUJBZ0lVWlAvdWgveWJhMi95ZjNGVWlaaDhpQ01uVTZnd0RRWUpLb1pJaHZjTkFRRUwKQlFBd01URUxNQWtHQTFVRUJoTUNRVlV4SWpBZ0JnTlZCQU1NR1hOcGJYQnNaUzFyZFdKbGNtNWxkR1Z6TFhkbApZbWh2YjJzd0hoY05NalV3TmpJNE1EWXhOakV4V2hjTk1qWXdOakk0TURZeE5qRXhXakF4TVFzd0NRWURWUVFHCkV3SkJWVEVpTUNBR0ExVUVBd3daYzJsdGNHeGxMV3QxWW1WeWJtVjBaWE10ZDJWaWFHOXZhekNDQVNJd0RRWUoKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSy9wNExQWEtQbVdMQTYvV1FTMS9NL3B5WXc3VWhPRwpCZ00wajgwUzl0b2EvcXFtK2hQSDZaL1JrZXNxTFNmalViV09xZ2owc3Z3djZwYS9xeGFuWnY4MVZHTldKT2JUCmlvSnFvODI5MlVHSGRPTjBHMnVlbllicWk3bVFyRUc1Q0hNL3RsNkpRTXM0WS92UGU2T1ZxV3lkaVRzelErcWwKeFQyUDZlVFhlcEp3ZE1BYUVQTTBheUVveHk3Mms1RldPN2ROeWJhL3o1VStpZzRVSEFQYzBoeUU2dmNJcFJBcApabDFSTFZqSzZBVHlCUXRRWjRXNTY3ZHhSaWZDSit4L1BGbnRyMjgzVWUvamVmRmVlVVpoNWRQSm9VaWVpOXByCk53eHp5aWVvT2FvSnUzUjlzeE9iUWsySVM5bEd0VkhEcFQ0TjUzL3g5cDJvVVNYY05GZ0dheDhDQXdFQUFhTlQKTUZFd0hRWURWUjBPQkJZRUZFMXdoYmhkWjZVVFpMOGlZVkJRWkRkR1pyVE5NQjhHQTFVZEl3UVlNQmFBRkUxdwpoYmhkWjZVVFpMOGlZVkJRWkRkR1pyVE5NQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEUVlKS29aSWh2Y05BUUVMCkJRQURnZ0VCQUllNGNWYkdkbE1lM29YMk80Ky9zNzFKUlRUcUYzM1FsekpNeWo4b0xlM0liZERjOEVWZkJScHcKUHZGUWZER3VFcGh1YUZiUkcxZmpmUDBpbEMzSEExdFVyK3BtaTBnOTNFcVduYU15dXgxNlFLTi91NXY3eTFKLwp2MnkzSSs0cmNYN1B3NE4vVWFlM3NIQkpIdFNuQkljR2xsU0RFYTZIZDdpdUxScno2K3ZPN0xGSlBNR2FNTE1WClRwejR4eERTV21tV0pLWkNUVEVJbnRjR1J2dUtQVERISlJmYkEvRjNnZ0NJeEtsT016YnJRNUQxMlhRazA2TlIKK25BWDVKV1Y1R05HNkFHbmdMeEZuNlNiMmpJOFQ0cWo0NHJ2YmxUSFpzUC91eFJ2bUtwUnlJallucmU1Ri81agpyRnhTMkNuckFtZWV1cDd4VTRCczhTQ1RPY1IwTzFVPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    admissionReviewVersions: ["v1"]
+    sideEffects: None
+    timeoutSeconds: 5
