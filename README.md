@@ -1,10 +1,37 @@
 # k8sController
 
-## To create a TLS cert 🔒
+## To create a TLS certs 🔒 use follwing command
 
-* `openssl req -newkey rsa:2048 -nodes -keyout tls.key -x509 -days 365 -out tls.crt -subj "/CN=image-validator.default.svc"`
+```
 
-* `kubectl create secret tls image-validator-tls --cert=tls.crt --key=tls.key -n default`
+openssl genrsa -out ca.key 2048
+
+openssl req -new -x509 -days 365 -key ca.key \
+  -subj "/C=AU/CN=simple-kubernetes-webhook"\
+  -out ca.crt
+
+openssl req -newkey rsa:2048 -nodes -keyout server.key \
+  -subj "/C=AU/CN=simple-kubernetes-webhook" \
+  -out server.csr
+
+openssl x509 -req \
+  -extfile <(printf "subjectAltName=DNS:image-validation-controller.default.svc,DNS:image-validation-controller.default.svc.cluster.local") \
+  -days 365 \
+  -in server.csr \
+  -CA ca.crt -CAkey ca.key -CAcreateserial \
+  -out server.crt
+
+  kubectl create secret tls simple-kubernetes-webhook-tls \
+  --cert=tls.crt \
+  --key=tls.key \
+  --dry-run=client -o yaml \
+  > ./secret.yaml
+
+
+cat ca.crt | base64 | tr -d '\n'
+
+rm ca.crt ca.key ca.srl server.crt server.csr server.key
+```
 
 ## Usage ⚙️
 

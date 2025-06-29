@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 
 	admissionv1 "k8s.io/api/admission/v1"
 	corev1 "k8s.io/api/core/v1"
@@ -18,9 +19,21 @@ func startsWith(image, prefix string) bool {
 }
 
 func validateImages(pod corev1.Pod) error {
+
 	for _, container := range pod.Spec.Containers {
-		if !startsWith(container.Image, allowedregistryPrefix) {
-			return fmt.Errorf("container image %s is not from the allowed registry: %s", container.Image, allowedregistryPrefix)
+
+		image := container.Image
+		// Normalize images that omit registry (e.g., "nginx" → "docker.io/library/nginx")
+		if !strings.Contains(image, ".") {
+			image = "registry.docker.io/library/" + image
+		} else if strings.HasPrefix(image, "docker.io/") {
+			image = "registry.docker.io/" + strings.TrimPrefix(image, "docker.io/")
+		}
+
+		if !startsWith(image, allowedregistryPrefix) {
+			err := fmt.Errorf("container image %s is not from the allowed registry: %s", container.Image, allowedregistryPrefix)
+			fmt.Println("Validation failed:", err)
+			return err
 		}
 	}
 	return nil

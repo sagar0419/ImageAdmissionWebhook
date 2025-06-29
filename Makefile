@@ -17,26 +17,27 @@ deploy: apply-serviceaccount apply-deployment apply-rolebinding
 .PHONY: apply-serviceaccount
 apply-serviceaccount:
 	@echo "🔄 Applying ServiceAccount..."
-	kubectl apply -n $(NAMESPACE) -f $(SERVICEACCOUNT_FILE)
+	kubectl apply -n $(NAMESPACE) -f manifest/$(SERVICEACCOUNT_FILE)
 
 # Apply Deployment
 .PHONY: apply-rolebinding
 apply-rolebinding:
 	@echo "🔄 Applying Deployment..."
-	kubectl apply -n $(NAMESPACE) -f $(DEPLOYMENT_FILE)
+	kubectl apply -n $(NAMESPACE) -f manifest/$(DEPLOYMENT_FILE)
 
 # Apply Deployment
 .PHONY: apply-deployment
 apply-deployment:
 	@echo "🔄 Applying Role and RoleBinding..."
-	kubectl apply -n $(NAMESPACE) -f $(ROLE_BINDING_FILE)
+	kubectl apply -n $(NAMESPACE) -f manifest/$(ROLE_BINDING_FILE)
 
 # Delete all resources
 .PHONY: clean
 clean:
 	@echo "☠️ Deleting resources..."
-	-kubectl delete -n $(NAMESPACE) -f $(DEPLOYMENT_FILE)
-	-kubectl delete -n $(NAMESPACE) -f $(SERVICEACCOUNT_FILE)
+	-kubectl delete -n $(NAMESPACE) -f manifest/$(DEPLOYMENT_FILE)
+	-kubectl delete -n $(NAMESPACE) -f manifest/$(SERVICEACCOUNT_FILE)
+	-kubectl delete -n $(NAMESPACE) -f manifest/$(ROLE_BINDING_FILE)
 
 # Check status
 .PHONY: status

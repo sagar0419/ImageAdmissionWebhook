@@ -1,0 +1,22 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: disallowed-deployment
+  labels:
+    app: disallowed
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: disallowed
+  template:
+    metadata:
+      labels:
+        app: disallowed
+    spec:
+      containers:
+        - name: disallowed
+          image: some-other-registry.io:1
+          ports:
+            - containerPort: 80
