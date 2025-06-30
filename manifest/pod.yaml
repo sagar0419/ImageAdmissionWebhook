@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: disallowed-deployment
+  namespace: default
   labels:
     app: disallowed
 spec:

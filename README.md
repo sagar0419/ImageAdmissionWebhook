@@ -7,11 +7,13 @@
 openssl genrsa -out ca.key 2048
 
 openssl req -new -x509 -days 365 -key ca.key \
-  -subj "/C=AU/CN=simple-kubernetes-webhook"\
+  -subj "/C=AU/CN=image-validation-controller.default.svc"\
+  -addext "subjectAltName = DNS:image-validation-controller.default.svc" \
   -out ca.crt
 
 openssl req -newkey rsa:2048 -nodes -keyout server.key \
-  -subj "/C=AU/CN=simple-kubernetes-webhook" \
+  -subj "/C=AU/CN=image-validation-controller.default.svc" \
+  -addext "subjectAltName = DNS:image-validation-controller.default.svc" \
   -out server.csr
 
 openssl x509 -req \
@@ -22,8 +24,8 @@ openssl x509 -req \
   -out server.crt
 
   kubectl create secret tls simple-kubernetes-webhook-tls \
-  --cert=tls.crt \
-  --key=tls.key \
+  --cert=ca.crt \
+  --key=ca.key \
   --dry-run=client -o yaml \
   > ./secret.yaml
 

@@ -32,22 +32,23 @@ spec:
       serviceAccountName: image-validation-controller
       containers:
         - name: image-validation-controller
-          image: sagar27/k8scontroller:2
+          image: sagar27/k8scontroller:3
+          imagePullPolicy: Always
           ports:
             - containerPort: 8443
           env:
             - name: LOG_LEVEL
               value: "info"
-          resources:
-            limits:
-              cpu: "200m"
-              memory: "256Mi"
-            requests:
-              cpu: "100m"
-              memory: "128Mi"
+          # resources:
+          #   limits:
+          #     cpu: "1"
+          #     memory: "1Gi"
+          #   requests:
+          #     cpu: "100m"
+          #     memory: "128Mi"
           volumeMounts:
             - name: tls-certs
-              mountPath: /tls
+              mountPath: /k8sController/tls
               readOnly: true
       volumes:
         - name: tls-certs

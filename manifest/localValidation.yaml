@@ -17,6 +17,7 @@ webhooks:
         resources: [ "pods" ]
         scope: "Namespaced"
     clientConfig:
+      # url: "https://image-validation-controller.default.svc/validate"
       service:
         namespace: default
         name: image-validation-controller
