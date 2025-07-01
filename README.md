@@ -37,7 +37,7 @@ rm ca.crt ca.key ca.srl server.crt server.csr server.key
 
 ## Usage ⚙️
 
-Run these commands in the `[Makefile](../Makefile)` directory 🗂️:
+Run these commands in the [Makefile](../Makefile) directory 🗂️:
 
 `make deploy          # Apply ServiceAccount + Deployment`
 
@@ -50,6 +50,6 @@ You can override the namespace if needed:
 `make deploy NAMESPACE=kube-system`
 
 
-If you are cloning the code in the local machine and running it from there use `[localValidation.yaml](manifest/localValidation.yaml)` file.
+If you are cloning the code in the local machine and running it from there use [localValidation.yaml](manifest/localValidation.yaml) file.
 
-If you are running it on kubernetes than use this validation file `[validateWebhookCOnfiguration.yaml](manifest/validateWebhookCOnfiguration.yaml)` .
+If you are running it on kubernetes than use this validation file [validateWebhookCOnfiguration.yaml](manifest/validateWebhookCOnfiguration.yaml) .
