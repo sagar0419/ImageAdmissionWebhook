@@ -37,7 +37,7 @@ rm ca.crt ca.key ca.srl server.crt server.csr server.key
 
 ## Usage ⚙️
 
-Run these commands in the [Makefile](../Makefile) directory 🗂️:
+Run these commands in the [Makefile](./Makefile) directory 🗂️:
 
 `make deploy          # Apply ServiceAccount + Deployment`
 
