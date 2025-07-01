@@ -32,7 +32,7 @@ func validateImages(pod corev1.Pod) error {
 
 		if !startsWith(image, allowedregistryPrefix) {
 			err := fmt.Errorf("container image %s is not from the allowed registry: %s", container.Image, allowedregistryPrefix)
-			fmt.Println("Validation failed:", err)
+			// fmt.Println("Validation failed:", err)
 			return err
 		}
 	}
@@ -49,6 +49,11 @@ func AdmitPods(w http.ResponseWriter, r *http.Request) {
 
 	if err := json.Unmarshal(body, &admissionReview); err != nil {
 		http.Error(w, "Could not parse admission review", http.StatusBadRequest)
+		return
+	}
+
+	if admissionReview.Request == nil {
+		http.Error(w, "Malformed AdmissionReview: missing request", http.StatusBadRequest)
 		return
 	}
 
@@ -75,7 +80,11 @@ func AdmitPods(w http.ResponseWriter, r *http.Request) {
 			Message: resultMsg,
 		},
 	}
-	respBytes, _ := json.Marshal(admissionReview)
+	respBytes, err := json.Marshal(admissionReview)
+	if err != nil {
+		http.Error(w, "Failed to marshal response", http.StatusInternalServerError)
+		return
+	}
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(respBytes)
 }
