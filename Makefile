@@ -6,11 +6,11 @@ NAMESPACE ?= default
 # YAML files
 DEPLOYMENT_FILE = deployment.yaml
 SERVICEACCOUNT_FILE = serviceAccount.yaml
-ROLE_BINDING_FILE = RoleRoleBinding.yaml
+# ROLE_BINDING_FILE = RoleRoleBinding.yaml
 
 # Apply all manifests
 .PHONY: deploy
-deploy: apply-serviceaccount apply-deployment apply-rolebinding
+deploy: apply-serviceaccount apply-deployment #apply-rolebinding
 	@echo "✅ All resources deployed successfully."
 
 # Apply ServiceAccount (and RBAC if included)
@@ -26,10 +26,10 @@ apply-rolebinding:
 	kubectl apply -n $(NAMESPACE) -f manifest/$(DEPLOYMENT_FILE)
 
 # Apply Deployment
-.PHONY: apply-deployment
-apply-deployment:
-	@echo "🔄 Applying Role and RoleBinding..."
-	kubectl apply -n $(NAMESPACE) -f manifest/$(ROLE_BINDING_FILE)
+# .PHONY: apply-deployment
+# apply-deployment:
+# 	@echo "🔄 Applying Role and RoleBinding..."
+# 	kubectl apply -n $(NAMESPACE) -f manifest/$(ROLE_BINDING_FILE)
 
 # Delete all resources
 .PHONY: clean

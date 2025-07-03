@@ -2,23 +2,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: disallowed-deployment
+  name: allowed-deployment
   namespace: default
   labels:
-    app: disallowed
+    app: allowed
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: disallowed
+      app: allowed
   template:
     metadata:
       labels:
-        app: disallowed
+        app: allowed
     spec:
       containers:
-        - name: disallowed
-          image: random.registry.io/nginx:1
-          # image: registry.docker.io/nginx:1
+        - name: allowed
+          # image: random.registry.io/nginx:1
+          image: registry.docker.io/nginx:1
           ports:
             - containerPort: 80

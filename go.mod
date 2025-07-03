@@ -5,6 +5,7 @@ go 1.24.4
 replace github.com/sagar0419/k8sController => .
 
 require (
+	github.com/emicklei/go-restful/v3 v3.12.2
 	k8s.io/api v0.33.2
 	k8s.io/apimachinery v0.33.2
 )

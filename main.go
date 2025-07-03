@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"net/http"
 
-	controller "github.com/sagar0419/k8sController/controller"
+	controller "github.com/sagar0419/k8sController/api/validate"
 )
 
 func main() {
 	fmt.Println("Starting Image validation controller")
 
-	http.HandleFunc("/validate", controller.AdmitPods)
+	http.HandleFunc("/validate", controller.AdmissionRouter)
 	err := http.ListenAndServeTLS(":443", "./tls/tls.crt", "./tls/tls.key", nil)
 	if err != nil {
 		panic(err)

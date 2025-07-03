@@ -53,3 +53,5 @@ You can override the namespace if needed:
 If you are cloning the code in the local machine and running it from there use [localValidation.yaml](manifest/localValidation.yaml) file.
 
 If you are running it on kubernetes than use this validation file [validateWebhookCOnfiguration.yaml](manifest/validateWebhookCOnfiguration.yaml) .
+
+To test this validation controller I have added the manifest file here [testManifests](manifest/testManifests).
