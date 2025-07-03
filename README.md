@@ -39,11 +39,23 @@ rm ca.crt ca.key ca.srl server.crt server.csr server.key
 
 Run these commands in the [Makefile](./Makefile) directory 🗂️:
 
+
+To deploy Webhook: -
+
 `make deploy          # Apply ServiceAccount + Deployment`
 
 `make status          # See what’s running`
 
 `make clean           # Delete all deployed resources`
+
+
+To deploy test Manifest: -
+
+`make test-deploy      # Apply the manifest files from the testManifest folder`
+
+`make test-status       # Check pod/Deployment is created or not`
+
+`make test-clean        # Delete all test resources`
 
 You can override the namespace if needed:
 
