@@ -8,5 +8,8 @@ spec:
   containers:
     - name: nginx-container
       image: hub.ssh.io/nginx:latest
+      env:
+        - name: IMAGE_REGISTRY
+          value: "hello.io"
       ports:
         - containerPort: 80

@@ -23,17 +23,17 @@ apply-serviceaccount:
 	@echo "🔄 Applying ServiceAccount..."
 	kubectl apply -n $(NAMESPACE) -f manifest/$(SERVICEACCOUNT_FILE)
 
-# Apply Deployment
-.PHONY: apply-rolebinding
-apply-rolebinding:
-	@echo "🔄 Applying Deployment..."
-	kubectl apply -n $(NAMESPACE) -f manifest/$(DEPLOYMENT_FILE)
+# # Apply Deployment
+# .PHONY: apply-rolebinding
+# apply-rolebinding:
+# 	@echo "🔄 Applying Deployment..."
+# 	kubectl apply -n $(NAMESPACE) -f manifest/$(DEPLOYMENT_FILE)
 
-# Apply Deployment
-# .PHONY: apply-deployment
-# apply-deployment:
-# 	@echo "🔄 Applying Role and RoleBinding..."
-# 	kubectl apply -n $(NAMESPACE) -f manifest/$(ROLE_BINDING_FILE)
+#Apply Deployment
+.PHONY: apply-deployment
+apply-deployment:
+	@echo "🔄 Applying Role and RoleBinding..."
+	kubectl apply -n $(NAMESPACE) -f manifest/$(ROLE_BINDING_FILE)
 
 # Delete all resources
 .PHONY: clean

@@ -1,4 +1,9 @@
-# k8sController
+# ImageAdmissionWebhook
+
+#### Prerequisite
+Before running the program you need to pass the registry variable name that you want to allow as an env variable.
+
+ export IMAGE_REGISTRY="hello.io"
 
 ## To create a TLS certs 🔒 use follwing command
 

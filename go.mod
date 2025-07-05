@@ -1,8 +1,8 @@
-module github.com/sagar0419/k8sController
+module github.com/sagar0419/ImageAdmissionWebhook
 
 go 1.24.4
 
-replace github.com/sagar0419/k8sController => .
+replace github.com/sagar0419/ImageAdmissionWebhook => .
 
 require (
 	github.com/emicklei/go-restful/v3 v3.12.2

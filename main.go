@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	controller "github.com/sagar0419/k8sController/api/validate"
+	controller "github.com/sagar0419/ImageAdmissionWebhook/api/validate"
 )
 
 func main() {

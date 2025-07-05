@@ -18,6 +18,6 @@ spec:
     spec:
       containers:
         - name: disallowed
-          image: random.registry.io/nginx:1
+          image: random.io/nginx:1
           ports:
             - containerPort: 80
