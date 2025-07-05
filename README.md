@@ -1,7 +1,7 @@
 # ImageAdmissionWebhook
 
 #### Prerequisite
-Before running the program you need to pass the registry variable name that you want to allow as an env variable.
+Before executing the program you need to pass the registry variable name that you want to allow as an env variable.
 
 ` export IMAGE_REGISTRY="hello.io"`
 
